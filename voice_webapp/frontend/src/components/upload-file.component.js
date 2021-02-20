@@ -53,11 +53,8 @@ onFileChange = event => {
       const formData = new FormData();
     
       // Update the formData object
-      formData.append(
-        "myFile",
-        this.state.selectedFile,
-        this.state.selectedFile.name
-      );
+      formData.append("audio_name", this.state.selectedFile, this.state.selectedFile.name);
+      formData.append("audio_file", this.state.selectedFile);
     
       // Details of the uploaded file
       console.log(this.state.selectedFile);
@@ -65,7 +62,18 @@ onFileChange = event => {
     
       // Request made to the backend api
       // Send formData object
-      axios.post("api/uploadfile", formData);
+      let url = 'http://localhost:8000/api/audiofiles/';
+
+      axios.post(url, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+
     };
     
     // File content to be displayed after
