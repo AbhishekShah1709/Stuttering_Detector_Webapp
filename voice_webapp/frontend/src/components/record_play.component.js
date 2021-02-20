@@ -46,7 +46,8 @@ export default class Recorder extends Component {
             .getMp3()
             .then(([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob)
-                    this.setState({ blobURL, isRecording: false });
+                    console.log(blobURL);
+                   this.setState({ blobURL, isRecording: false });
             }).catch((e) => console.log(e));
     };
     
