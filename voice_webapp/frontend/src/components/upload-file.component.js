@@ -70,7 +70,6 @@ onFileChange = event => {
       }
     })
         .then(res => {
-            console.log("HELLO");
           console.log(res.data);
         })
         .catch(err => console.log(err))
