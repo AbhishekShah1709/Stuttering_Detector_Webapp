@@ -53,8 +53,8 @@ onFileChange = event => {
       const formData = new FormData();
     
       // Update the formData object
+      formData.append("audio_file", this.state.selectedFile, this.state.selectedFile.name);
       formData.append("audio_name", this.state.selectedFile.name);
-      console.log(typeof(this.state.selectedFile.name));
 
       // Details of the uploaded file
       console.log(this.state.selectedFile);
