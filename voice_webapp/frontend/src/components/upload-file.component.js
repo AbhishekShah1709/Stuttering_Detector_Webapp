@@ -75,7 +75,37 @@ onFileChange = event => {
         .catch(err => console.log(err))
 
     };
+
+    // On file upload (click the upload button)
+    doFeatureExtraction = () => {
     
+      // Create an object of formData
+      const formData = new FormData();
+    
+      // Update the formData object
+      formData.append("file_details", this.state.selectedFile, this.state.selectedFile.name);
+      formData.append("file_name", this.state.selectedFile.name);
+
+      // Details of the uploaded file
+      console.log(this.state.selectedFile);
+      console.log(this.state.selectedFile.name);
+    
+      // Request made to the backend api
+      // Send formData object
+      let url = 'http://localhost:8000/api/disorder_detection/';
+
+      axios.post(url, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+
+    };
+
     // File content to be displayed after
     // file upload is complete
     fileData = () => {
@@ -117,6 +147,9 @@ onFileChange = event => {
                     <input type="file" onChange={this.onFileChange} />
                     <button onClick={this.onFileUpload}>
                     Upload
+                    </button>
+                    <button onClick={this.doFeatureExtraction}>
+                    Feature Extraction
                     </button>
                 </div>
 

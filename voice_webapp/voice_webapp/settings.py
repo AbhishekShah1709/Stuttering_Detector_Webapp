@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'audiofiles',
+    'disorder_detector',
     'rest_framework',
     'corsheaders'
 ]

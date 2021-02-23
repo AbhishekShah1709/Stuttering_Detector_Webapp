@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 #    url(r'^api/audiofiles/$', views.customers_list),
     path('api/', include('audiofiles.urls')),
+    path('api/', include('disorder_detector.urls')),
 ]
 
 if settings.DEBUG:
