@@ -5,7 +5,7 @@ from django.db import models
 class Detector(models.Model):
 
     file_name = models.TextField()
-    file_details = models.FileField()
+    file_details = models.FileField(upload_to='tmp/')
 #    audio_name = models.CharField(max_length=100)
 #    audio_file = models.FileField(upload_to='audio_player/')
 #    audio_file = models.FileField(upload_to='audio_player/media/audio_player/')
