@@ -63,13 +63,14 @@ onFileChange = event => {
       // Request made to the backend api
       // Send formData object
       let url = 'http://localhost:8000/api/audiofiles/';
-
+      var path = require("path");
       axios.post(url, formData, {
       headers: {
         'content-type': 'multipart/form-data'
       }
     })
         .then(res => {
+          this.setState({blobURL: "http://localhost:8000" + res.data.audio_file});
           console.log(res.data);
         })
         .catch(err => console.log(err))
