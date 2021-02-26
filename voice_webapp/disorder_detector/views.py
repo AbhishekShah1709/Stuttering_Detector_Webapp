@@ -19,7 +19,7 @@ import keras
 from keras.models import Model, load_model, Sequential
 import pickle
 from pydub import AudioSegment
-AudioSegment.ffprobe = "/usr/local/lib/python3.5/dist-packages/ffprobe-0.5.dist-info"
+#AudioSegment.ffprobe = "/usr/local/lib/python3.5/dist-packages/ffprobe-0.5.dist-info"
 
 
 # Create your views here.
@@ -43,7 +43,7 @@ class DetectorView(APIView):
             sound = AudioSegment.from_mp3("./media/my_audios/" + file_name)
             sound.export("./media/my_audios_wav/" + file_name.split('.')[0] + ".wav", format="wav")
 
-            model = pickle.load(open('~/iiit/SEM 6/BTP/Stuttering/BTP_FP.sav', 'rb'))
+#            model = pickle.load(open('~/iiit/SEM 6/BTP/Stuttering/BTP_FP.sav', 'rb'))
             wav="./media/my_audios_wav/" + file_name.split('.')[0] + ".wav" ### Path of audio file
             newAudio = AudioSegment.from_wav(wav)
             (rate,sig) = wavy.read(wav)
@@ -60,7 +60,9 @@ class DetectorView(APIView):
                 final_feats.append(xt)
             
             final_feats = np.array(final_feats)
-            
+            return Response({'data': detector_serializer.data , 'features': final_feats})
+
+
 #            yhat_classes = model.predict(final_feats)
 #            a=0
 #            kt=0
