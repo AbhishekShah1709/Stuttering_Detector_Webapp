@@ -12,12 +12,33 @@ export default class UploadFileSystem extends Component {
 			isRecording: false,
 			blobURL: '',
 			isBlocked: false,
-            selectedFile: null,
-            show_features: []
+            selectedFile: null
 		}
 	}
 
+    start = () => {
+        if (this.state.isBlocked) {
+            console.log('Permission Denied');
+        } else {
+            Mp3Recorder
+                .start()
+                .then(() => {
+                    this.setState({ isRecording: true });
+                }).catch((e) => console.error(e));
+        }
+    };
 
+    stop = () => {
+        Mp3Recorder
+            .stop()
+            .getMp3()
+            .then(([buffer, blob]) => {
+                const blobURL = URL.createObjectURL(blob)
+                    console.log(blobURL);
+                   this.setState({ blobURL, isRecording: false });
+            }).catch((e) => console.log(e));
+    };
+   
 onFileChange = event => {
     
       // Update the state
@@ -80,7 +101,6 @@ onFileChange = event => {
       }
     })
         .then(res => {
-            this.setState({show_features: res.features});
           console.log(res.data);
         })
         .catch(err => console.log(err))
@@ -136,7 +156,6 @@ onFileChange = event => {
 
                 {this.fileData()}
                 <audio src={this.state.blobURL} controls="controls" />
-                <div> {this.state.show_features} </div>
                 </div>
               )
     }
