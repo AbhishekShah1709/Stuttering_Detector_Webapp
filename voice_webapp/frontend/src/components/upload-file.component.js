@@ -31,14 +31,19 @@ onFileChange = event => {
     
       // Create an object of formData
       const formData = new FormData();
-    
+
+  
+      var uploaded_file = this.state.selectedFile;
+      uploaded_file._name = uploaded_file.name.replaceAll(" ","_");
+      this.setState({uploaded_file});
+
       // Update the formData object
-      formData.append("audio_file", this.state.selectedFile, this.state.selectedFile.name);
+      formData.append("audio_file", this.state.selectedFile, this.state.selectedFile._name);
       formData.append("audio_name", this.state.selectedFile.name);
 
       // Details of the uploaded file
       console.log(this.state.selectedFile);
-      console.log(this.state.selectedFile.name);
+      console.log(this.state.selectedFile._name);
     
       // Request made to the backend api
       // Send formData object
@@ -64,12 +69,12 @@ onFileChange = event => {
       const formData = new FormData();
     
       // Update the formData object
-      formData.append("file_details", this.state.selectedFile, this.state.selectedFile.name);
-      formData.append("file_name", this.state.selectedFile.name);
+      formData.append("file_details", this.state.selectedFile, this.state.selectedFile._name);
+      formData.append("file_name", this.state.selectedFile._name);
 
       // Details of the uploaded file
       console.log(this.state.selectedFile);
-      console.log(this.state.selectedFile.name);
+      console.log(this.state.selectedFile._name);
     
       // Request made to the backend api
       // Send formData object
