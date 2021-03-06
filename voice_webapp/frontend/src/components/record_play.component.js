@@ -16,6 +16,7 @@ export default class Recorder extends Component {
 			isRecording: false,
 			blobURL: '',
 			isBlocked: false,
+			isRecorded: false,
 		}
 	}
 
@@ -50,6 +51,7 @@ export default class Recorder extends Component {
             .getMp3()
             .then(([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob)
+                this.setState({isRecorded: true});
                 console.log(blobURL);
                 console.log(buffer);
                 console.log(blob);

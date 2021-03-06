@@ -11,10 +11,11 @@ export default class UploadFileSystem extends Component {
 		this.state = {
 			isRecording: false,
 			blobURL: '',
+      isRecorded: true,
 			isBlocked: false,
-            selectedFile: null,
-            show_features: [],
-            show_output: []
+      selectedFile: null,
+      show_features: [],
+      show_output: []
 		}
 	}
 
@@ -56,6 +57,7 @@ onFileChange = event => {
     })
         .then(res => {
           this.setState({blobURL: "http://localhost:8000" + res.data.audio_file});
+          this.setState({isRecorded: false});
           console.log(res.data);
         })
         .catch(err => console.log(err))
@@ -133,11 +135,11 @@ onFileChange = event => {
                 <h3> Upload your file </h3>
                 <div>
                     <input type="file" onChange={this.onFileChange} />
-                    <button onClick={this.onFileUpload}>
+                    <button onClick={this.onFileUpload} disabled = {this.state.selectedFile == null}>
                     Upload
                     </button>
                     
-                    <button onClick={this.doFeatureExtraction}>
+                    <button onClick={this.doFeatureExtraction} disabled = {this.state.isRecorded}>
                     Run Model
                     </button>
                 </div>
