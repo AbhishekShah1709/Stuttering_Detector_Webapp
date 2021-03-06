@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import MicRecorder from 'mic-recorder-to-mp3';
-const Mp3Recorder = new MicRecorder({ bitRate: 128 });
+
+const Mp3Recorder = new MicRecorder({
+    bitRate: 128,
+    prefix: "data:audio/wav;base64,",
+});
 
 export default class Recorder extends Component {
 
@@ -46,7 +50,10 @@ export default class Recorder extends Component {
             .getMp3()
             .then(([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob)
-                    console.log(blobURL);
+                console.log(blobURL);
+                console.log(buffer);
+                console.log(blob);
+                const binaryString = btoa(blobURL)
                    this.setState({ blobURL, isRecording: false });
             }).catch((e) => console.log(e));
     };
