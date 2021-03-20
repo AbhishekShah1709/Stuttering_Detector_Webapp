@@ -17,6 +17,7 @@ export default class UploadFileSystem extends Component {
       show_features: [],
       show_output: [],
       stuttered: "Not stuttered",
+      checked: false,
 		}
 	}
 
@@ -92,20 +93,22 @@ onFileChange = event => {
             this.setState({show_features: res.data.features});
             this.setState({show_output: res.data.output});
             var cnt = 0;
-            var cnt1 = 0;
-            for(var i = 0;i<this.state.show_output.length - 1;i++) {
-              if(this.state.show_output[i] == 1 && this.state.show_output[i+1] == 1) {
-                cnt1++;
-              }
-            }
+            var curr = 0;
             for(var i = 0;i<this.state.show_output.length;i++) {
               if(this.state.show_output[i] == 1) {
+                curr++;
+              }
+              else {
+                curr = 0;
+              }
+              if(curr == 28) {
                 cnt++;
               }
             }
-            if(cnt1 >= 2 && cnt >= 28) {
-              this.state.stuttered = "stuttered";
+            if(cnt > 2) {
+              this.setState({stuttered: "Stuttered"});
             }
+            this.setState({checked: true});
             console.log(cnt);
           console.log(res.data);
         })
@@ -147,6 +150,9 @@ onFileChange = event => {
     };
 
     render() {
+        var isChecked = {
+          display:this.state.checked?"block":"none"
+        }
         return(
                 <div>
                 <h3> Upload your file </h3>
@@ -163,10 +169,7 @@ onFileChange = event => {
 
                 {this.fileData()}
                 <audio src={this.state.blobURL} controls="controls" />
-                <div> {this.state.show_output} </div>
-                {this.state.stuttered == "stuttered" &&
-                <div>Given Input is {this.state.stuttered}</div>
-                }
+                <div style = {isChecked}> Given Input is {this.state.stuttered} </div>
                 </div>
               )
     }
