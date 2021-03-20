@@ -15,7 +15,8 @@ export default class UploadFileSystem extends Component {
 			isBlocked: false,
       selectedFile: null,
       show_features: [],
-      show_output: []
+      show_output: [],
+      stuttered: "Not stuttered",
 		}
 	}
 
@@ -90,6 +91,22 @@ onFileChange = event => {
         .then(res => {
             this.setState({show_features: res.data.features});
             this.setState({show_output: res.data.output});
+            var cnt = 0;
+            var cnt1 = 0;
+            for(var i = 0;i<this.state.show_output.length - 1;i++) {
+              if(this.state.show_output[i] == 1 && this.state.show_output[i+1] == 1) {
+                cnt1++;
+              }
+            }
+            for(var i = 0;i<this.state.show_output.length;i++) {
+              if(this.state.show_output[i] == 1) {
+                cnt++;
+              }
+            }
+            if(cnt1 >= 2 && cnt >= 28) {
+              this.state.stuttered = "stuttered";
+            }
+            console.log(cnt);
           console.log(res.data);
         })
         .catch(err => console.log(err))
@@ -147,6 +164,9 @@ onFileChange = event => {
                 {this.fileData()}
                 <audio src={this.state.blobURL} controls="controls" />
                 <div> {this.state.show_output} </div>
+                {this.state.stuttered == "stuttered" &&
+                <div>Given Input is {this.state.stuttered}</div>
+                }
                 </div>
               )
     }
