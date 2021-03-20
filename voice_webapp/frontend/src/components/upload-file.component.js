@@ -75,6 +75,7 @@ onFileChange = event => {
       // Update the formData object
       formData.append("file_details", this.state.selectedFile, this.state.selectedFile._name);
       formData.append("file_name", this.state.selectedFile._name);
+      formData.append("category", "uploaded");
 
       // Details of the uploaded file
       console.log(this.state.selectedFile);
@@ -88,7 +89,7 @@ onFileChange = event => {
       headers: {
         'content-type': 'multipart/form-data'
       }
-    })
+      })
         .then(res => {
             this.setState({show_features: res.data.features});
             this.setState({show_output: res.data.output});

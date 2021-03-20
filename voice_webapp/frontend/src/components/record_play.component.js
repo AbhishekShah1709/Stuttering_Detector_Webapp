@@ -17,6 +17,9 @@ export default class Recorder extends Component {
 			blobURL: '',
 			isBlocked: false,
 			isRecorded: false,
+            stuttered: "Not stuttered",
+            checked: false,
+            blob_to_send: '',
 		}
 	}
 
@@ -51,7 +54,9 @@ export default class Recorder extends Component {
             .getMp3()
             .then(([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob)
-                this.setState({isRecorded: true});
+                this.setState({isRecorded: false});
+                this.setState({blob_to_send: blob});
+              
                 console.log(blobURL);
                 console.log(buffer);
                 console.log(blob);
@@ -59,8 +64,57 @@ export default class Recorder extends Component {
                    this.setState({ blobURL, isRecording: false });
             }).catch((e) => console.log(e));
     };
+   
+     // On file upload (click the upload button)
+    doFeatureExtraction = () => {
     
+      // Create an object of formData
+      const formData = new FormData();
+    
+      // Update the formData object
+      formData.append("blob_details", this.state.blob_to_send);
+      formData.append("category", "recorded");
+
+    
+      // Request made to the backend api
+      // Send formData object
+      let url = 'http://localhost:8000/api/disorder_detection/';
+
+      axios.post(url, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+      })
+        .then(res => {
+            this.setState({show_features: res.data.features});
+            this.setState({show_output: res.data.output});
+            var cnt = 0;
+            var curr = 0;
+            for(var i = 0;i<this.state.show_output.length;i++) {
+              if(this.state.show_output[i] == 1) {
+                curr++;
+              }
+              else {
+                curr = 0;
+              }
+              if(curr == 28) {
+                cnt++;
+              }
+            }
+            if(cnt > 2) {
+              this.setState({stuttered: "Stuttered"});
+            }
+            this.setState({checked: true});
+            console.log(cnt);
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+
+    };   
     render() {
+        var isChecked = {
+          display:this.state.checked?"block":"none"
+        }
         return(
                 <div>
                 <button onClick={this.start} disabled={this.state.isRecording}>
@@ -69,7 +123,13 @@ export default class Recorder extends Component {
                 <button onClick={this.stop} disabled={!this.state.isRecording}>
                 Stop
                 </button>
+
+                <button onClick={this.doFeatureExtraction} disabled = {this.state.isRecorded}>
+                Run Model 
+                </button>
+
                 <audio src={this.state.blobURL} controls="controls" />
+                <div style = {isChecked}> Given Input is {this.state.stuttered} </div>
                 </div>
               )
     }
