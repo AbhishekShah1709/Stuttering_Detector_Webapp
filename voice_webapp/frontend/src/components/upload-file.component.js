@@ -109,6 +109,9 @@ onFileChange = event => {
             if(cnt > 2) {
               this.setState({stuttered: "Stuttered"});
             }
+            else {
+              this.setState({stuttered: "Not Stuttered"});
+            }
             this.setState({checked: true});
             console.log(cnt);
           console.log(res.data);
