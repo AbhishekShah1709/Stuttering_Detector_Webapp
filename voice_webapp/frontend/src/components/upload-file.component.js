@@ -158,8 +158,11 @@ onFileChange = event => {
         var isChecked = {display:this.state.checked?"block":"none", fontWeight: "bold"}
         
         return(
+                
                 <div style={{
 					textAlign: "center",
+                    background: "linear-gradient(rgba(255,0,0,0.7),transparent)",
+                    backgroundColor: "pink",
 				}}>
                 
                 <br/>
@@ -196,9 +199,11 @@ onFileChange = event => {
                 
                 <br/>
                 <br/>
-                
-                <audio src={this.state.blobURL} controls="controls" />
-                
+             
+                <div style={{display: this.state.isRecorded?"none":"block", textAlign:"center"}}>
+                <audio src={this.state.blobURL} controls="controls"/>
+                </div>
+
                 <br/>
                 <br/>
             
