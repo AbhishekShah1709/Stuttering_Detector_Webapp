@@ -128,52 +128,83 @@ onFileChange = event => {
          
         return (
           <div>
-            <h2>File Details:</h2>
-             
-<p>File Name: {this.state.selectedFile.name}</p>
- 
-             
-<p>File Type: {this.state.selectedFile.type}</p>
- 
-             
-<p>
-              Last Modified:{" "}
-              {this.state.selectedFile.lastModifiedDate.toDateString()}
-            </p>
- 
+          <h4 style={{
+                    fontWeight: "bold",
+				}}> 
+           File Details:</h4>
+          <h5>File Name: {this.state.selectedFile.name}</h5>
+          <h5>File Type: {this.state.selectedFile.type}</h5>
+          <h5>
+          Last Modified:{" "}
+          {this.state.selectedFile.lastModifiedDate.toDateString()}
+          </h5>
+
           </div>
         );
-      } else {
+      } 
+      
+/*      else {
         return (
           <div>
             <br />
-            <h4>Choose before Pressing the Upload button</h4>
+            <h5 style={{color: 'red'}}> Choose before Pressing the Upload button </h5>
           </div>
         );
       }
+*/      
     };
 
     render() {
-        var isChecked = {
-          display:this.state.checked?"block":"none"
-        }
+        var isChecked = {display:this.state.checked?"block":"none", fontWeight: "bold"}
+        
         return(
+                <div style={{
+					textAlign: "center",
+				}}>
+                
+                <br/>
+                <br/>
+                <br/>
+                
+                <h1 style={{
+                    fontWeight: "bold",
+				}}> 
+                Upload your file 
+                </h1>
+                
+                <br/>
+                <br/>
+                
                 <div>
-                <h3> Upload your file </h3>
-                <div>
-                    <input type="file" onChange={this.onFileChange} />
-                    <button onClick={this.onFileUpload} disabled = {this.state.selectedFile == null}>
+                
+                    <input type="file" onChange={this.onFileChange}/>
+                    
+                    <button type="button" onClick={this.onFileUpload} className="btn btn-primary" disabled = {this.state.selectedFile == null}>
                     Upload
                     </button>
                     
-                    <button onClick={this.doFeatureExtraction} disabled = {this.state.isRecorded}>
+                    <button type="button" onClick={this.doFeatureExtraction} className="btn btn-primary" disabled = {this.state.isRecorded}>
                     Run Model
                     </button>
+                
                 </div>
+                
+                <br/>
+                <br/>
 
                 {this.fileData()}
+                
+                <br/>
+                <br/>
+                
                 <audio src={this.state.blobURL} controls="controls" />
-                <div style = {isChecked}> Given Input is {this.state.stuttered} </div>
+                
+                <br/>
+                <br/>
+            
+                <h3 style = {isChecked} > Result: Given Input is {this.state.stuttered} </h3>
+                
+                
                 </div>
               )
     }
