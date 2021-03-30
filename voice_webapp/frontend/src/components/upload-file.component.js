@@ -8,17 +8,17 @@ export default class UploadFileSystem extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			isRecording: false,
-			blobURL: '',
-      isRecorded: true,
-			isBlocked: false,
-      selectedFile: null,
-      show_features: [],
-      show_output: [],
-      stuttered: "Not stuttered",
-      checked: false,
-		}
+        this.state = {
+            isRecording: false,
+            blobURL: '',
+            isRecorded: true,
+            isBlocked: false,
+            selectedFile: null,
+            show_features: [],
+            show_output: [],
+            stuttered: "Not stuttered",
+            checked: false,
+        }
 	}
 
 

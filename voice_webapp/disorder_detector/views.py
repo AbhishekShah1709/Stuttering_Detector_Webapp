@@ -56,8 +56,6 @@ class DetectorView(APIView):
 
             path = "./media/tmp2/" + file_name
 
-            print("HERE _________________________________________________________________________________")
-            print(type(request.data['blob_details']))
             with open(path, 'wb') as f:
                 f.write(request.data['blob_details'].read())
 
@@ -109,6 +107,17 @@ class DetectorView(APIView):
         
         print(yhat_classes) ### yhat_classes is an array of 1 and 0, in which 1 represents detected filled pause at that frame and 0 represents normal speech
 ### For ersion of yhat_classes to time array, each frame is of .01 seconds. And total no. of frames equal to total no. of elements in yhat_classes
+
+
+        ## Removing Files after it's use is over
+        if category == 'uploaded':
+            os.remove("./media/my_audios/" + file_name)
+            os.remove("./media/my_audios_wav/" + file_name.split('.')[0] + ".wav")
+
+        elif category == 'recorded':
+            os.remove("./media/tmp2/" + file_name)
+            os.remove("./media/my_audios_wav/" + file_name + ".wav")
+
 
 #        return Response({'data': detector_serializer.data , 'features': final_feats, 'output': yhat_classes})
         return Response({'features': final_feats, 'output': yhat_classes})
