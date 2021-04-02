@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar {
+  min-width: 100vh;
+  outline:black solid;
+}
+.navbar-brand{
+  opacity: 0.5;
+  color: black;
+  font-weight: bold;
+}
+.nav-link {
+  opacity: 0.5;
+  color:  black;
+  font-weight: bold;
+}
+.nav-link:hover{
+  opacity: 0.9;
+  color: black;
+  font-weight: bolder;
+}
+.navbar-brand:hover{ 
+  opacity: 0.9;
+  color: black;
+  font-weight: bolder;
+}

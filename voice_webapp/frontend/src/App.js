@@ -5,12 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Recorder from './components/record_play.component.js'
 import UploadFileSystem from './components/upload-file.component.js'
-
 function App() {
     return (
         <Router>
             <div className="container">
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg">
             <Link to="/" className="navbar-brand">App</Link>
             <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
