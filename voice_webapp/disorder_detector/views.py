@@ -44,7 +44,7 @@ class DetectorView(APIView):
         
         if category == 'uploaded':
             file_name = request.data['file_name']
-    
+            
             sound = AudioSegment.from_mp3("./media/my_audios/" + file_name)
             sound.export("./media/my_audios_wav/" + file_name.split('.')[0] + ".wav", format="wav")
     

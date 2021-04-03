@@ -190,6 +190,8 @@ export default class UploadFileSystem extends Component {
 
         <div>
 
+
+
           <input type="file" onChange={this.onFileChange} />
 
           <button type="button" onClick={this.onFileUpload} className="btn btn-primary" disabled={this.state.selectedFile == null}>
@@ -210,7 +212,7 @@ export default class UploadFileSystem extends Component {
         <br />
         <br />
 
-        <div style={{ display: this.state.isRecorded ? "none" : "block", textAlign: "center" }}>
+        <div style={{ display: this.state.isRecorded ? "none" : "block"}}>
           <audio src={this.state.blobURL} controls="controls" />
         </div>
 

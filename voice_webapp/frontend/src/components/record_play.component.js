@@ -112,9 +112,7 @@ export default class Recorder extends Component {
 
   };
   render() {
-    var isChecked = {
-      display: this.state.checked ? "block" : "none"
-    }
+    var isChecked = { display: this.state.checked ? "block" : "none", fontWeight: "bold"}
     return (
       <div>
         <br />
@@ -123,6 +121,7 @@ export default class Recorder extends Component {
         <h1 style={{
           fontWeight: "bold",
         }}>
+
           Test With Voice
                 </h1>
         <br/>
@@ -145,8 +144,13 @@ export default class Recorder extends Component {
         <div style={{ display: this.state.isRecorded ? "none" : "block"}}>
         <audio src={this.state.blobURL} controls="controls" />
         </div>
-        <div style={isChecked}> Given Input is {this.state.stuttered} </div>
-      </div>
+
+        <br />
+        <br />
+        
+        <h3 style={isChecked}> Result: Given Input is {this.state.stuttered} </h3>
+      
+        </div>
     )
   }
 }
