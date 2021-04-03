@@ -32,6 +32,17 @@ export default class UploadFileSystem extends Component {
   //   document.body.style.backgroundColor = "pink";
   //   document.body.style.background = "linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%)";
   // }
+  checkmp3(filename) {
+    var parts = filename.toString().split('.');
+    console.log(parts[parts.length - 1]);
+    if (parts[parts.length - 1] != 'mp3') {
+      alert("Please Give a Valid mp3 file");
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
   // On file upload (click the upload button)
   onFileUpload = () => {
 
@@ -50,23 +61,23 @@ export default class UploadFileSystem extends Component {
     // Details of the uploaded file
     console.log(this.state.selectedFile);
     console.log(this.state.selectedFile._name);
-
-    // Request made to the backend api
-    // Send formData object
-    let url = 'http://localhost:8000/api/audiofiles/';
-    var path = require("path");
-    axios.post(url, formData, {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    })
-      .then(res => {
-        this.setState({ blobURL: "http://localhost:8000" + res.data.audio_file });
-        this.setState({ isRecorded: false });
-        console.log(res.data);
+    if (this.checkmp3(this.state.selectedFile._name)) {
+      // Request made to the backend api
+      // Send formData object
+      let url = 'http://localhost:8000/api/audiofiles/';
+      var path = require("path");
+      axios.post(url, formData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       })
-      .catch(err => console.log(err))
-
+        .then(res => {
+          this.setState({ blobURL: "http://localhost:8000" + res.data.audio_file });
+          this.setState({ isRecorded: false });
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+    }
   };
 
   // On file upload (click the upload button)
